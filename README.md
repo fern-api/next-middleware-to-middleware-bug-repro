@@ -21,6 +21,8 @@ In production, site1 is a multi-tenant vercel project, which we're mocking in th
 3. click the `num++` and `num--` buttons to increment and decrement the number
 4. observe that `Application error: a client-side exception has occurred (see the browser console for more information).` is logged in the browser console
 
+---
+
 # Expected behavior
 
 1. navigate to [site3](https://site3.danny-312.workers.dev/)
