@@ -9,12 +9,12 @@ export default function Home() {
       </Head>
       <div className={`${styles.page}`}>
         <main className={styles.main}>
-          <p>I am a site2 page. /testing/[num] is rewritten to site1:</p>
+          <p>I am a site2 page. /basepath/[num] is rewritten to site1:</p>
           <NextLink
-            href={`/testing/0`}
+            href={`/basepath/0`}
             style={{ border: "1px solid black", padding: "10px" }}
           >
-            Click here to go to /testing/0
+            Click here to go to /basepath/0
           </NextLink>
         </main>
       </div>

@@ -13,18 +13,18 @@ export default function Home({ num }: { num: number }) {
       <div className={`${styles.page}`}>
         <main className={styles.main}>
           <p>
-            I am a site1 page located at <code>/nested/[num].tsx</code> but
-            served on <code>/testing/[num]</code>
+            I am a site1 page located at <code>/tenant/[num].tsx</code> but
+            served on <code>/basepath/[num]</code>
           </p>
           <p>current num: {num}</p>
           <NextLink
-            href={`/testing/${num - 1}`}
+            href={`/basepath/${num - 1}`}
             style={{ border: "1px solid black", padding: "10px" }}
           >
             num--
           </NextLink>
           <NextLink
-            href={`/testing/${num + 1}`}
+            href={`/basepath/${num + 1}`}
             style={{ border: "1px solid black", padding: "10px" }}
           >
             num++

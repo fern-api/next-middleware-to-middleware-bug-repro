@@ -7,14 +7,14 @@ import {
 } from "./utils/next-data-url";
 
 export function middleware(request: NextRequest) {
-  // block direct access to /nested/[num].tsx
-  if (request.nextUrl.pathname.startsWith("/nested")) {
+  // block direct access to /tenant/[num].tsx
+  if (request.nextUrl.pathname.startsWith("/tenant")) {
     return NextResponse.rewrite(new URL("/404", request.url));
   }
 
-  // redirect / to /nested/0
+  // redirect / to /tenant/0
   if (request.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/testing/0", request.url));
+    return NextResponse.redirect(new URL("/basepath/0", request.url));
   }
 
   // rewrite /**/_next/data to /_next/data
@@ -25,9 +25,9 @@ export function middleware(request: NextRequest) {
     const buildId = getBuildId(request);
     const pathname = nextDataRouteToPathname(request.nextUrl.pathname);
 
-    // rewrite /testing/* to /nested/*
-    if (pathname.startsWith("/testing")) {
-      const newPathname = pathname.replace("/testing", "/nested");
+    // rewrite /basepath/* to /tenant/*
+    if (pathname.startsWith("/basepath")) {
+      const newPathname = pathname.replace("/basepath", "/tenant");
       return NextResponse.rewrite(
         new URL(
           // Note: there appears to be a bug in next.js where development and production don't behave the same way
@@ -60,9 +60,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL(newPathname, request.url));
   }
 
-  // rewrite /testing/* to /nested/*
-  if (request.nextUrl.pathname.startsWith("/testing")) {
-    const newPathname = request.nextUrl.pathname.replace("/testing", "/nested");
+  // rewrite /basepath/* to /tenant/*
+  if (request.nextUrl.pathname.startsWith("/basepath")) {
+    const newPathname = request.nextUrl.pathname.replace(
+      "/basepath",
+      "/tenant"
+    );
     return NextResponse.rewrite(new URL(newPathname, request.url));
   }
   return NextResponse.next();
@@ -70,5 +73,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/", "/testing/:num", "/nested/:num", "/testing/_next/:path*"],
+  matcher: ["/", "/basepath/:num", "/tenant/:num", "/basepath/_next/:path*"],
 };
